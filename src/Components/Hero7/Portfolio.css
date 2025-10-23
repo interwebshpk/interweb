@@ -1,0 +1,115 @@
+.section-portfolio {
+  background-color: #e7e7e7;
+  padding: 50px 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.portfolio-container {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(80px);
+  border-radius: 16px;
+  padding: 50px 40px;
+  max-width: 1300px;
+  width: 100%;
+  text-align: center;
+}
+
+.section-portfolio p {
+  font-size: 18px;
+  margin-bottom: 40px;
+  color: #000000c7;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.portfolio-item {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(6, 172, 238, 0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.portfolio-item:hover {
+  transform: translateY(-5px);
+}
+
+.item-image {
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.item-image::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+}
+
+.corner-arrow {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.portfolio-item:hover .corner-arrow {
+  transform: scale(1.1);
+}
+
+.item-info {
+  padding: 24px;
+}
+
+.item-info h3 {
+  font-size: 20px;
+  color: #101c3d;
+  font-weight: 600;
+  position: relative;
+}
+
+.item-info h3::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: #00adef;
+  transition: width 0.3s ease;
+}
+
+.portfolio-item:hover .item-info h3::after {
+  width: 50px;
+}
+
+@media (max-width: 768px) {
+  .portfolio-container {
+    padding: 40px 20px;
+  }
+  .section-portfolio p {
+    font-size: 16px;
+  }
+}

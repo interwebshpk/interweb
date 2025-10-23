@@ -1,0 +1,77 @@
+.ssl-wrapper {
+  background: #e7e7e7;
+  padding: 80px 20px 20px 20px;
+  min-height: 100vh;
+}
+
+.ssl-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ssl-info {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 173, 239, 0.25);
+  margin-bottom: 50px;
+  transition: all 0.4s ease;
+}
+
+.ssl-info p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.ssl-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+.ssl-card {
+  flex: 1;
+  min-width: 320px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ssl-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 173, 239, 0.25);
+}
+
+.ssl-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: rgba(0, 173, 239, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.ssl-card h2 {
+  color: #00adef;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.ssl-card p {
+  color: #333;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .ssl-cards {
+    flex-direction: column;
+  }
+}
