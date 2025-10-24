@@ -67,6 +67,11 @@ const Blog = () => {
           ))}
         </div>
       </div>
+      <div className="blog-btn-wrapper">
+        <a href="#" className="blog-btn">
+          Lexo më shumë →
+        </a>
+      </div>
     </section>
   );
 };

@@ -5,11 +5,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   overflow: hidden;
-  margin-top: -100px;
   background: url("../../assets/images/png-1.webp") center/cover no-repeat;
 }
+
 .fullSection::before {
   content: "";
   position: absolute;
@@ -27,71 +26,64 @@
   margin: 100px auto;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 90%;
-  gap: 40px;
-  max-width: 1400px;
+  gap: 60px;
+  max-width: 1200px;
 }
 
 .section2-left {
-  margin-top: 30px;
-  flex-basis: 50%;
+  flex-basis: 55%;
+  text-align: left;
 }
 
 .section2 h2 {
   font-weight: 700;
-  font-size: 40px;
+  font-size: 36px;
   color: #111;
-  margin-bottom: 20px;
-  text-align: left;
+  margin-bottom: 10px;
 }
 
 .section2 h3 {
-  text-align: left;
   color: #00adef;
-  font-size: 20px;
+  font-size: 18px;
+  margin-bottom: 25px;
 }
 
 .section2 p {
-  color: #444;
-  margin-bottom: 20px;
-  line-height: 1.8;
+  color: #222;
   font-size: 15px;
-  text-align: left;
+  line-height: 1.8;
+  max-width: 550px;
+  margin-bottom: 25px;
+  text-align: justify;
+}
+
+.mision-btn {
+  display: inline-block;
+  text-decoration: none;
+  color: #111;
+  border-bottom: 2px solid #00adef;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.mision-btn:hover {
+  color: #00adef;
 }
 
 .section2-right {
-  flex-basis: 50%;
+  flex-basis: 45%;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
+  margin-top: 40px;
 }
 
 .section2-img {
   width: 100%;
-  max-width: 550px;
-  /* border-radius: 14px;
-  display: block;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12); */
-}
-
-@media (min-width: 1440px) {
-  .section2 {
-    max-width: 1600px;
-    gap: 80px;
-  }
-
-  .section2 h2 {
-    font-size: 34px;
-  }
-
-  .section2 p {
-    font-size: 17px;
-    line-height: 1.9;
-  }
-
-  .section2-img {
-    max-width: 650px;
-  }
+  max-width: 520px;
+  padding-top: 60px;
 }
 
 @media (max-width: 768px) {
@@ -101,17 +93,12 @@
     gap: 20px;
   }
 
-  .section2 h2 {
-    text-align: center;
-  }
-
-  .section2 p {
-    text-align: center;
-    font-size: 16px;
-    line-height: 1.6;
+  .section2-left p {
+    text-align: left;
+    max-width: 90%;
   }
 
   .section2-img {
-    max-width: 100%;
+    max-width: 85%;
   }
 }

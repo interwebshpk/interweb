@@ -7,8 +7,8 @@ function Mision() {
     <div className="fullSection">
       <div className="section2">
         <div className="section2-left">
-          <h2>Misioni Ynë ​</h2>
-          <h3>Përkushtim në çdo hap për rezultate të shkëlqyera. ​</h3>
+          <h2>Misioni Ynë</h2>
+          <h3>Përkushtim në çdo hap për rezultate të shkëlqyera.</h3>
           <p>
             Çdo projekt ndjek një proces të strukturuar dhe të detajuar që nis
             me një analizë të thelluar të kërkesave dhe qëllimeve të klientit,
@@ -21,9 +21,11 @@ function Mision() {
             ndërsa përmes një procesi rigoroz testimi sigurohet cilësia dhe
             funksionaliteti. Në përfundim, faqja lançohet në ambientin e
             prodhimit, duke garantuar një zgjidhje që përmbush në mënyrë të
-            plotë kërkesat dhe pritshmëritë e klientit.​
+            plotë kërkesat dhe pritshmëritë e klientit.
           </p>
-          <br />
+          <a href="/contact" className="mision-btn">
+            Lexo më shumë →
+          </a>
         </div>
 
         <div className="section2-right">
