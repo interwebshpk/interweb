@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./Navbar.css";
+import NavbarItem from "./NavbarItem";
 import "boxicons/css/boxicons.min.css";
+import "./Navbar.css";
 
 const Navbar = () => {
   const [menuActive, setMenuActive] = useState(false);
   const [dropdownStates, setDropdownStates] = useState({});
-  const [scrolled, setScrolled] = useState(false);
 
   const toggleMenu = (e) => {
     e.stopPropagation();
@@ -23,18 +23,6 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
         setMenuActive(false);
@@ -45,22 +33,8 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (window.innerWidth <= 768 && menuActive) {
-        const nav = document.getElementById("navMenu");
-        const toggle = document.getElementById("menuToggle");
-        if (!nav.contains(e.target) && e.target !== toggle) {
-          setMenuActive(false);
-        }
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, [menuActive]);
-
   return (
-    <header className={`header-container ${scrolled ? "hidden" : ""}`}>
+    <header className="header-container">
       <nav className="navbar">
         <Link to="/" className="logo">
           <img
@@ -70,24 +44,12 @@ const Navbar = () => {
         </Link>
 
         <ul className={`nav-menu ${menuActive ? "active" : ""}`} id="navMenu">
-          <li className="nav-item">
-            <Link
-              to="/"
-              className="nav-link"
-              onClick={() => setMenuActive(false)}
-            >
-              Kreu
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              to="/about"
-              className="nav-link"
-              onClick={() => setMenuActive(false)}
-            >
-              Rreth Nesh
-            </Link>
-          </li>
+          <NavbarItem link="/" name="Kreu" setMenuActive={setMenuActive} />
+          <NavbarItem
+            link="/about"
+            name="Rreth Nesh"
+            setMenuActive={setMenuActive}
+          />
 
           <li className="nav-item dropdown">
             <button
@@ -109,35 +71,27 @@ const Navbar = () => {
                 >
                   Faqe Interneti <i className="bx bx-chevron-right"></i>
                 </button>
+
                 <ul
                   className={`sub-dropdown-menu ${
                     dropdownStates["faqe"] ? "active" : ""
                   }`}
                 >
-                  <li>
-                    <Link
-                      to="/services/ndertim-faqe"
-                      onClick={() => setMenuActive(false)}
-                    >
-                      Ndërtim faqe interneti
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/services/mirembajtje"
-                      onClick={() => setMenuActive(false)}
-                    >
-                      Mirëmbajtje faqesh interneti
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/services/ecommerce"
-                      onClick={() => setMenuActive(false)}
-                    >
-                      Zgjidhje E-commerce
-                    </Link>
-                  </li>
+                  <NavbarItem
+                    link="/services/ndertim-faqe"
+                    name="Ndërtim faqe interneti"
+                    setMenuActive={setMenuActive}
+                  />
+                  <NavbarItem
+                    link="/services/mirembajtje"
+                    name="Mirëmbajtje faqesh interneti"
+                    setMenuActive={setMenuActive}
+                  />
+                  <NavbarItem
+                    link="/services/ecommerce"
+                    name="Zgjidhje E-commerce"
+                    setMenuActive={setMenuActive}
+                  />
                 </ul>
               </li>
 
@@ -148,84 +102,60 @@ const Navbar = () => {
                 >
                   Domaine & Web Hosting <i className="bx bx-chevron-right"></i>
                 </button>
+
                 <ul
                   className={`sub-dropdown-menu ${
                     dropdownStates["hosting"] ? "active" : ""
                   }`}
                 >
-                  <li>
-                    <Link
-                      to="/services/web-hosting"
-                      onClick={() => setMenuActive(false)}
-                    >
-                      Web Hosting
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/services/servera"
-                      onClick={() => setMenuActive(false)}
-                    >
-                      Servera të dedikuar dhe VPS
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/services/certifikata-ssl"
-                      onClick={() => setMenuActive(false)}
-                    >
-                      Certifikata SSL
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/services/email"
-                      onClick={() => setMenuActive(false)}
-                    >
-                      Hosted Email Exchange
-                    </Link>
-                  </li>
+                  <NavbarItem
+                    link="/services/web-hosting"
+                    name="Web Hosting"
+                    setMenuActive={setMenuActive}
+                  />
+                  <NavbarItem
+                    link="/services/servera"
+                    name="Servera të dedikuar dhe VPS"
+                    setMenuActive={setMenuActive}
+                  />
+                  <NavbarItem
+                    link="/services/certifikata-ssl"
+                    name="Certifikata SSL"
+                    setMenuActive={setMenuActive}
+                  />
+                  <NavbarItem
+                    link="/services/email"
+                    name="Hosted Email Exchange"
+                    setMenuActive={setMenuActive}
+                  />
                 </ul>
               </li>
 
-              <li className="dropdown-item">
-                <Link
-                  to="/services/te-tjera"
-                  onClick={() => setMenuActive(false)}
-                >
-                  Shërbime të tjera
-                </Link>
-              </li>
+              <NavbarItem
+                link="/services/te-tjera"
+                name="Shërbime të tjera"
+                setMenuActive={setMenuActive}
+              />
             </ul>
           </li>
 
-          <li className="nav-item">
-            <Link
-              to="/projects"
-              className="nav-link"
-              onClick={() => setMenuActive(false)}
-            >
-              Projekte
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              to="/blog"
-              className="nav-link"
-              onClick={() => setMenuActive(false)}
-            >
-              Blogu Ynë
-            </Link>
-          </li>
-        </ul>
+          <NavbarItem
+            link="/projects"
+            name="Projekte"
+            setMenuActive={setMenuActive}
+          />
+          <NavbarItem
+            link="/blog"
+            name="Blogu Ynë"
+            setMenuActive={setMenuActive}
+          />
 
-        <Link
-          to="/contact"
-          className="contact-btn"
-          onClick={() => setMenuActive(false)}
-        >
-          KONTAKTO
-        </Link>
+          <NavbarItem
+            link="/contact"
+            name="KONTAKTO"
+            setMenuActive={setMenuActive}
+          />
+        </ul>
 
         <button
           className="menu-toggle"

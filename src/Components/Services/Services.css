@@ -1,14 +1,3 @@
-:root {
-  --bg: #e7e7e7;
-  --card: #ffffff;
-  --ink: #111111;
-  --muted: #555555;
-  --brand: #06acee;
-  --card-shadow: 0 6px 18px rgba(6, 172, 238, 0.15);
-  --card-shadow-hover: 0 20px 40px rgba(6, 172, 238, 0.35);
-  --radius: 20px;
-}
-
 .services-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -19,10 +8,10 @@
 }
 
 .service-card {
-  background: var(--card);
-  padding: 28px 28px 40px;
-  border-radius: var(--radius);
-  box-shadow: var(--card-shadow);
+  background: #ffffff;
+  padding: 15px 28px 15px;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(6, 172, 238, 0.15);
   transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease,
     color 0.35s ease;
   position: relative;
@@ -38,7 +27,7 @@
 .service-card:hover {
   background: #1a1a1a;
   color: #fff;
-  box-shadow: var(--card-shadow-hover);
+  box-shadow: 0 20px 40px rgba(6, 172, 238, 0.35);
   transform: translateY(-8px) scale(1.02);
 }
 
@@ -52,7 +41,7 @@
 }
 
 .service-icon path {
-  fill: var(--brand);
+  fill: #06acee;
 }
 
 .service-card:hover .service-icon {
@@ -64,7 +53,7 @@
   font-size: 22px;
   line-height: 1.25;
   margin: 0 0 10px;
-  color: var(--ink);
+  color: #111111;
   transition: color 0.35s ease;
   text-align: left;
 }
@@ -75,7 +64,7 @@
 
 .service-card p {
   font-size: 16px;
-  color: var(--muted);
+  color: #555555;
   line-height: 1.55;
   margin: 0 0 36px;
   transition: color 0.35s ease;
