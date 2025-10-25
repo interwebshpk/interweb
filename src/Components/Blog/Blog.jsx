@@ -68,7 +68,7 @@ const Blog = () => {
         </div>
       </div>
       <div className="blog-btn-wrapper">
-        <a href="#" className="blog-btn">
+        <a href="/blog" className="blog-btn">
           Lexo më shumë →
         </a>
       </div>

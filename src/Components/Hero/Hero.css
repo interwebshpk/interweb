@@ -15,7 +15,7 @@
       rgba(231, 231, 231, 1) 100%
     ),
     url("../../assets/images/png-1.webp") center/cover no-repeat;
-  margin-top: -135px;
+  margin-top: -155px;
   z-index: 100;
 }
 .hero::after {
@@ -86,5 +86,14 @@
 
   .hero-subtitle {
     font-size: 1rem;
+  }
+  .hero {
+    background: radial-gradient(
+        circle at center,
+        #488bb3f2 0%,
+        rgba(255, 255, 255, 0.85) 70%,
+        rgba(231, 231, 231, 1) 100%
+      ),
+      url("../../assets/images/phonebg.png") center/cover no-repeat;
   }
 }
