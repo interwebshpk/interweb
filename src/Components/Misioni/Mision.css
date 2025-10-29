@@ -1,12 +1,13 @@
 .fullSection {
   position: relative;
   width: 100%;
-  min-height: 70vh;
+  min-height: 40vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   background: url("../../assets/images/png-1.webp") center/cover no-repeat;
+  margin-top: -100px;
 }
 
 .fullSection::before {

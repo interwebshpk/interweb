@@ -1,42 +1,81 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import NavbarItem from "./NavbarItem";
 import "boxicons/css/boxicons.min.css";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [menuActive, setMenuActive] = useState(false);
-  const [dropdownStates, setDropdownStates] = useState({});
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [open, setOpen] = useState({
+    sherbime: false,
+    faqe: false,
+    hosting: false,
+  });
+
+  const onResize = useCallback(() => {
+    const mobile = window.innerWidth <= 768;
+    setIsMobile(mobile);
+    if (!mobile) {
+      setMenuActive(false);
+      setOpen({ sherbime: false, faqe: false, hosting: false });
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [onResize]);
 
   const toggleMenu = (e) => {
     e.stopPropagation();
-    setMenuActive((prev) => !prev);
+    setMenuActive((p) => !p);
   };
 
-  const handleDropdownToggle = (key) => {
-    if (window.innerWidth <= 768) {
-      setDropdownStates((prev) => ({
-        ...prev,
-        [key]: !prev[key],
-      }));
-    }
+  const toggleMobile = (key, e) => {
+    if (!isMobile) return;
+    e.preventDefault();
+    e.stopPropagation();
+    setOpen((prev) => {
+      if (key === "sherbime") {
+        return { sherbime: !prev.sherbime, faqe: false, hosting: false };
+      }
+      if (key === "faqe") {
+        return { ...prev, faqe: !prev.faqe, hosting: false };
+      }
+      if (key === "hosting") {
+        return { ...prev, hosting: !prev.hosting, faqe: false };
+      }
+      return prev;
+    });
+  };
+
+  const hoverOpen = (key) => {
+    if (isMobile) return;
+    setOpen((prev) => ({ ...prev, [key]: true }));
+  };
+  const hoverClose = (key) => {
+    if (isMobile) return;
+    setOpen((prev) => ({ ...prev, [key]: false }));
   };
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768) {
+    const onDocClick = (e) => {
+      if (!isMobile) return;
+      const nav = document.getElementById("navMenu");
+      const toggle = document.getElementById("menuToggle");
+      if (menuActive && nav && !nav.contains(e.target) && e.target !== toggle) {
         setMenuActive(false);
-        setDropdownStates({});
+        setOpen({ sherbime: false, faqe: false, hosting: false });
       }
     };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
+  }, [menuActive, isMobile]);
 
   return (
     <header className="header-container">
       <nav className="navbar">
-        <Link to="/" className="logo">
+        <Link to="/" className="logo" onClick={() => setMenuActive(false)}>
           <img
             src="https://interweb.al/wp-content/uploads/2025/08/logo.webp"
             alt="InterWeb Logo"
@@ -44,117 +83,190 @@ const Navbar = () => {
         </Link>
 
         <ul className={`nav-menu ${menuActive ? "active" : ""}`} id="navMenu">
-          <NavbarItem link="/" name="Kreu" setMenuActive={setMenuActive} />
-          <NavbarItem
-            link="/about"
-            name="Rreth Nesh"
-            setMenuActive={setMenuActive}
-          />
+          <li className="nav-item">
+            <Link
+              to="/"
+              className="nav-link"
+              onClick={() => setMenuActive(false)}
+            >
+              Kreu
+            </Link>
+          </li>
 
-          <li className="nav-item dropdown">
+          <li className="nav-item">
+            <Link
+              to="/about"
+              className="nav-link"
+              onClick={() => setMenuActive(false)}
+            >
+              Rreth Nesh
+            </Link>
+          </li>
+
+          <li
+            className="nav-item dropdown"
+            onMouseEnter={() => hoverOpen("sherbime")}
+            onMouseLeave={() => hoverClose("sherbime")}
+          >
             <button
-              className="nav-link has-dropdown"
-              onClick={() => handleDropdownToggle("sherbime")}
+              type="button"
+              className={`nav-link has-dropdown ${
+                open.sherbime ? "active" : ""
+              }`}
+              onClick={(e) => toggleMobile("sherbime", e)}
+              aria-expanded={open.sherbime}
+              aria-haspopup="true"
             >
               Shërbime <i className="bx bx-chevron-down"></i>
             </button>
 
-            <ul
-              className={`dropdown-menu ${
-                dropdownStates["sherbime"] ? "active" : ""
-              }`}
-            >
-              <li className="dropdown-item">
+            <ul className={`dropdown-menu ${open.sherbime ? "active" : ""}`}>
+              <li
+                className="dropdown-item has-submenu"
+                onMouseEnter={() => hoverOpen("faqe")}
+                onMouseLeave={() => hoverClose("faqe")}
+              >
                 <button
-                  className="has-submenu"
-                  onClick={() => handleDropdownToggle("faqe")}
+                  type="button"
+                  className={`has-submenu ${open.faqe ? "active" : ""}`}
+                  onClick={(e) => toggleMobile("faqe", e)}
+                  aria-expanded={open.faqe}
                 >
                   Faqe Interneti <i className="bx bx-chevron-right"></i>
                 </button>
 
                 <ul
-                  className={`sub-dropdown-menu ${
-                    dropdownStates["faqe"] ? "active" : ""
-                  }`}
+                  className={`sub-dropdown-menu ${open.faqe ? "active" : ""}`}
                 >
-                  <NavbarItem
-                    link="/services/ndertim-faqe"
-                    name="Ndërtim faqe interneti"
-                    setMenuActive={setMenuActive}
-                  />
-                  <NavbarItem
-                    link="/services/mirembajtje"
-                    name="Mirëmbajtje faqesh interneti"
-                    setMenuActive={setMenuActive}
-                  />
-                  <NavbarItem
-                    link="/services/ecommerce"
-                    name="Zgjidhje E-commerce"
-                    setMenuActive={setMenuActive}
-                  />
+                  <li>
+                    <Link
+                      to="/services/ndertim-faqe"
+                      className="nav-link"
+                      onClick={() => setMenuActive(false)}
+                    >
+                      Ndërtim faqe interneti
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/services/mirembajtje"
+                      className="nav-link"
+                      onClick={() => setMenuActive(false)}
+                    >
+                      Mirëmbajtje faqesh interneti
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/services/ecommerce"
+                      className="nav-link"
+                      onClick={() => setMenuActive(false)}
+                    >
+                      Zgjidhje E-commerce
+                    </Link>
+                  </li>
                 </ul>
               </li>
 
-              <li className="dropdown-item">
+              <li
+                className="dropdown-item has-submenu"
+                onMouseEnter={() => hoverOpen("hosting")}
+                onMouseLeave={() => hoverClose("hosting")}
+              >
                 <button
-                  className="has-submenu"
-                  onClick={() => handleDropdownToggle("hosting")}
+                  type="button"
+                  className={`has-submenu ${open.hosting ? "active" : ""}`}
+                  onClick={(e) => toggleMobile("hosting", e)}
+                  aria-expanded={open.hosting}
                 >
                   Domaine & Web Hosting <i className="bx bx-chevron-right"></i>
                 </button>
 
                 <ul
                   className={`sub-dropdown-menu ${
-                    dropdownStates["hosting"] ? "active" : ""
+                    open.hosting ? "active" : ""
                   }`}
                 >
-                  <NavbarItem
-                    link="/services/web-hosting"
-                    name="Web Hosting"
-                    setMenuActive={setMenuActive}
-                  />
-                  <NavbarItem
-                    link="/services/servera"
-                    name="Servera të dedikuar dhe VPS"
-                    setMenuActive={setMenuActive}
-                  />
-                  <NavbarItem
-                    link="/services/certifikata-ssl"
-                    name="Certifikata SSL"
-                    setMenuActive={setMenuActive}
-                  />
-                  <NavbarItem
-                    link="/services/email"
-                    name="Hosted Email Exchange"
-                    setMenuActive={setMenuActive}
-                  />
+                  <li>
+                    <Link
+                      to="/services/web-hosting"
+                      className="nav-link"
+                      onClick={() => setMenuActive(false)}
+                    >
+                      Web Hosting
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/services/servera"
+                      className="nav-link"
+                      onClick={() => setMenuActive(false)}
+                    >
+                      Servera të dedikuar dhe VPS
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/services/certifikata-ssl"
+                      className="nav-link"
+                      onClick={() => setMenuActive(false)}
+                    >
+                      Certifikata SSL
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/services/email"
+                      className="nav-link"
+                      onClick={() => setMenuActive(false)}
+                    >
+                      Hosted Email Exchange
+                    </Link>
+                  </li>
                 </ul>
               </li>
 
-              <NavbarItem
-                link="/services/te-tjera"
-                name="Shërbime të tjera"
-                setMenuActive={setMenuActive}
-              />
+              <li>
+                <Link
+                  to="/services/te-tjera"
+                  className="nav-link"
+                  onClick={() => setMenuActive(false)}
+                >
+                  Shërbime të tjera
+                </Link>
+              </li>
             </ul>
           </li>
 
-          <NavbarItem
-            link="/projects"
-            name="Projekte"
-            setMenuActive={setMenuActive}
-          />
-          <NavbarItem
-            link="/blog"
-            name="Blogu Ynë"
-            setMenuActive={setMenuActive}
-          />
+          <li className="nav-item">
+            <Link
+              to="/projects"
+              className="nav-link"
+              onClick={() => setMenuActive(false)}
+            >
+              Projekte
+            </Link>
+          </li>
 
-          <NavbarItem
-            link="/contact"
-            name="KONTAKTO"
-            setMenuActive={setMenuActive}
-          />
+          <li className="nav-item">
+            <Link
+              to="/blog"
+              className="nav-link"
+              onClick={() => setMenuActive(false)}
+            >
+              Blogu Ynë
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link
+              to="/contact"
+              className="nav-link"
+              onClick={() => setMenuActive(false)}
+            >
+              KONTAKTO
+            </Link>
+          </li>
         </ul>
 
         <button

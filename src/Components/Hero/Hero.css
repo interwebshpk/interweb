@@ -6,29 +6,40 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  overflow: hidden;
   color: #fff;
-  background: radial-gradient(
+  overflow: hidden;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(72, 139, 179, 0) 75%,
+      #e7e7e7 100%
+    ),
+    radial-gradient(
       circle at center,
       #488bb3f2 0%,
       rgba(255, 255, 255, 0.85) 70%,
       rgba(231, 231, 231, 1) 100%
     ),
-    url("../../assets/images/png-1.webp") center/cover no-repeat;
-  margin-top: -155px;
-  z-index: 100;
+    url("../../assets/images/png-1.webp");
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: 100% 100%, 120% 120%, 520px auto;
+  background-position: center, center, center;
+  margin-top: -135px;
+  /* z-index: 100; */
 }
+
 .hero::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.1) 0%,
-    transparent 80%
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 150px;
+  background: linear-gradient(
+    to bottom,
+    rgba(241, 241, 241, 0) 0%,
+    #f1f1f1 100%
   );
-  z-index: 1;
-  opacity: 0.4;
+  z-index: 2;
 }
 
 .hero-content {
